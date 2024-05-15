@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.util.*;
+
 @Entity
 @Table(name = Usuario.TABLE_NAME)
 @Getter
@@ -31,4 +33,7 @@ public class Usuario {
     @NotEmpty
     @Size(min = 2, max = 60)
     private String senha;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Despesa> despesas = new ArrayList<Despesa>();
 }
