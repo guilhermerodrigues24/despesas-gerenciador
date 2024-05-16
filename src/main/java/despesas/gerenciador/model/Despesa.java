@@ -1,5 +1,6 @@
 package despesas.gerenciador.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -36,7 +37,6 @@ public class Despesa {
 
     @Column(name = "custo", nullable = false)
     @NotNull
-    @NotEmpty
     @DecimalMin(value = "0.0", inclusive = false, message = "O custo deve ser maior que 0")
     private BigDecimal custo;
 
@@ -44,6 +44,7 @@ public class Despesa {
     @NotNull
     private LocalDate vencimento;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
