@@ -48,4 +48,9 @@ public class Despesa {
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "tipo_despesa_id", nullable = false)
+    private TipoDespesa tipoDespesa;
 }
