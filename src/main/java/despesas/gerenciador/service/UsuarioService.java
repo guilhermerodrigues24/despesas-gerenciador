@@ -32,6 +32,7 @@ public class UsuarioService {
     public Usuario atualizarUsuario(Usuario usuario) {
         Usuario novoUsuario = buscarUsuarioPorId(usuario.getId());
         novoUsuario.setSenha(usuario.getSenha());
+        novoUsuario.setEmail(usuario.getEmail());
         return usuarioRepository.save(novoUsuario);
     }
 

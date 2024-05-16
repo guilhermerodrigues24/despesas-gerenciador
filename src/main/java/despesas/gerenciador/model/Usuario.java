@@ -28,6 +28,12 @@ public class Usuario {
     @Size(min = 2, max = 255)
     private String usuario;
 
+    @Column(name = "email", length = 255, nullable = false, unique = true)
+    @NotNull
+    @NotEmpty
+    @Size(min = 2, max = 255)
+    private String email;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "senha", length = 60, nullable = false)
     @NotNull
