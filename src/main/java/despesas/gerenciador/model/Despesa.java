@@ -1,6 +1,7 @@
 package despesas.gerenciador.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -44,13 +45,13 @@ public class Despesa {
     @NotNull
     private LocalDate vencimento;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
+    @JsonIgnoreProperties("despesas")
     private Usuario usuario;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "tipo_despesa_id", nullable = false)
+    @JsonIgnoreProperties("despesas")
     private TipoDespesa tipoDespesa;
 }

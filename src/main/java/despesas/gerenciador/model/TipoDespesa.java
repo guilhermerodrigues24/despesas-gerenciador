@@ -1,6 +1,7 @@
 package despesas.gerenciador.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -30,5 +31,6 @@ public class TipoDespesa {
     private String tipo;
 
     @OneToMany(mappedBy = "tipoDespesa")
+    @JsonIgnoreProperties("tipoDespesa")
     private List<Despesa> despesas = new ArrayList<Despesa>();
 }
