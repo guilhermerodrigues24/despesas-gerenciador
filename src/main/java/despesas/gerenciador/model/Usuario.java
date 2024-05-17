@@ -14,7 +14,7 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class Usuario extends Pessoa {
     public static final String TABLE_NAME = "usuario";
 
