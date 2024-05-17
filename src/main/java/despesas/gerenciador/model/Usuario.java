@@ -14,19 +14,21 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-public class Usuario {
+@EqualsAndHashCode(callSuper = true)
+public class Usuario extends Pessoa {
     public static final String TABLE_NAME = "usuario";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "usuario", length = 255, nullable = false, unique = true)
     @NotNull
     @NotEmpty
     @Size(min = 2, max = 255)
     private String usuario;
+
+    @Column(name = "email", length = 255, nullable = false, unique = true)
+    @NotNull
+    @NotEmpty
+    @Size(min = 2, max = 255)
+    private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "senha", length = 60, nullable = false)
