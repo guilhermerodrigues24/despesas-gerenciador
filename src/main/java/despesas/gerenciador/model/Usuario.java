@@ -14,13 +14,9 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-public class Usuario {
+@EqualsAndHashCode(callSuper = false)
+public class Usuario extends Pessoa {
     public static final String TABLE_NAME = "usuario";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "usuario", length = 255, nullable = false, unique = true)
     @NotNull
