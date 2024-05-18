@@ -3,6 +3,7 @@ package despesas.gerenciador.controller;
 import despesas.gerenciador.model.Usuario;
 import despesas.gerenciador.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,19 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @PostMapping("/login")
+    public ResponseEntity<?> autenticarUsuario(@RequestBody Usuario usuario) {
+        String email = usuario.getEmail();
+        String senha = usuario.getSenha();
+
+        // Chama o método de autenticação no serviço de usuário
+        if (usuarioService.autenticarUsuario(email, senha)) {
+            return ResponseEntity.ok().body("{\"message\": \"Usuário autenticado com sucesso!\"}");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Email ou senha incorretos\"}");
+        }
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> buscarUsuarioPorId(@PathVariable Long id) {
