@@ -16,6 +16,15 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    public boolean autenticarUsuario(String email, String senha) {
+        Optional<Usuario> optionalUsuario = usuarioRepository.findByEmail(email);
+        if (optionalUsuario.isPresent()) {
+            Usuario usuario = optionalUsuario.get();
+            return usuario.getSenha().equals(senha);
+        }
+        return false;
+    }
+
     @Transactional
     public Usuario criarUsuario(Usuario usuario) {
         usuario.setId(null);

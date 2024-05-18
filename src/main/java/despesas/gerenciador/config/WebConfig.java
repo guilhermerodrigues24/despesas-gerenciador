@@ -1,4 +1,4 @@
-package despesas.gerenciador.config;
+package despesas.gerenciador.config.CORS;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
