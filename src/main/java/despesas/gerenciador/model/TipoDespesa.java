@@ -15,14 +15,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-public class TipoDespesa {
+@EqualsAndHashCode(callSuper = false)
+public class TipoDespesa extends Entidade{
     public static final String TABLE_NAME = "tipo_despesa";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
-    private Long id;
 
     @Column(name = "tipo", length = 255, nullable = false)
     @NotNull

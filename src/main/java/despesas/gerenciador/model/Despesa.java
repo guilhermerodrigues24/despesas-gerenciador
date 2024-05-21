@@ -15,14 +15,9 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
-public class Despesa {
+@EqualsAndHashCode(callSuper = false)
+public class Despesa extends Entidade {
     public static final String TABLE_NAME = "despesa";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true)
-    private Long id;
 
     @Column(name = "nome", length = 255, nullable = false)
     @NotNull

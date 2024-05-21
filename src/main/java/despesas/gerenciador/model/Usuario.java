@@ -15,7 +15,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Usuario extends Pessoa {
+public class Usuario extends Entidade {
     public static final String TABLE_NAME = "usuario";
 
     @Column(name = "usuario", length = 255, nullable = false, unique = true)
@@ -40,4 +40,8 @@ public class Usuario extends Pessoa {
     @OneToMany(mappedBy = "usuario")
     @JsonIgnoreProperties("usuario")
     private List<Despesa> despesas = new ArrayList<Despesa>();
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnoreProperties("usuario")
+    private List<Receita> receitas = new ArrayList<Receita>();
 }
