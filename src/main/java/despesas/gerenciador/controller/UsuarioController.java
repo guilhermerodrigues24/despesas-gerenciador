@@ -12,14 +12,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/usuario")
 @Validated
 public class UsuarioController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @PostMapping("/login")
+      @PostMapping("/login")
     public ResponseEntity<?> autenticarUsuario(@RequestBody Usuario usuario) {
         String email = usuario.getEmail();
         String senha = usuario.getSenha();
