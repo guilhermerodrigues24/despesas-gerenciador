@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,7 +28,6 @@ public class UsuarioService {
 
     @Transactional
     public Usuario criarUsuario(Usuario usuario) {
-        usuario.setId(null);
         usuario = usuarioRepository.save(usuario);
         return usuario;
     }
@@ -53,5 +53,17 @@ public class UsuarioService {
             throw new RuntimeException("Não é possível excluir, há entidades relacionadas!");
         }
         return usuarioRepository.findById(id);
+    }
+
+    public Long buscarIdDoUsuario(Usuario usuario) {
+        Long id = usuario.getId();
+        return id;
+    }
+
+    public Long buscarIdDoUsuarioPorEmail(String email) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
+        Usuario usuario =
+                usuarioOptional.orElseThrow(() -> new NoSuchElementException("Usuário não encontrado para o email: " + email));
+        return usuario.getId();
     }
 }
