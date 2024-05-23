@@ -46,8 +46,4 @@ public class Receita extends Entidade {
     @JsonIgnoreProperties("receitas")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "tipo_receita_id", nullable = false)
-    @JsonIgnoreProperties("receitas")
-    private TipoReceita tipoReceita;
 }

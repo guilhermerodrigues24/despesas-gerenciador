@@ -44,9 +44,4 @@ public class Despesa extends Entidade {
     @JoinColumn(name = "usuario_id", nullable = false)
     @JsonIgnoreProperties("despesas")
     private Usuario usuario;
-
-    @ManyToOne
-    @JoinColumn(name = "tipo_despesa_id", nullable = false)
-    @JsonIgnoreProperties("despesas")
-    private TipoDespesa tipoDespesa;
 }
