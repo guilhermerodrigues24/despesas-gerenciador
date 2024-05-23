@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/usuario")
 @Validated
 public class UsuarioController {
 
@@ -24,9 +26,16 @@ public class UsuarioController {
         String email = usuario.getEmail();
         String senha = usuario.getSenha();
 
-        // Chama o método de autenticação no serviço de usuário
+        // Autentica o usuário
         if (usuarioService.autenticarUsuario(email, senha)) {
-            return ResponseEntity.ok().body("{\"message\": \"Usuário autenticado com sucesso!\"}");
+            // Recupera o ID do usuário do banco de dados
+            Long idDoUsuario = usuarioService.buscarIdDoUsuarioPorEmail(email);
+
+            // Retorna a resposta com o ID do usuário
+            Map<String, Object> responseBody = new HashMap<>();
+            responseBody.put("message", "Usuário autenticado com sucesso!");
+            responseBody.put("userId", idDoUsuario);
+            return ResponseEntity.ok().body(responseBody);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"message\": \"Email ou senha incorretos\"}");
         }

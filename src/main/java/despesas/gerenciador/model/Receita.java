@@ -1,23 +1,24 @@
 package despesas.gerenciador.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = Despesa.TABLE_NAME)
+@Table(name = "receita")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Despesa extends Entidade {
-    public static final String TABLE_NAME = "despesa";
+public class Receita extends Entidade {
 
     @Column(name = "nome", length = 255, nullable = false)
     @NotNull
@@ -31,17 +32,18 @@ public class Despesa extends Entidade {
     @Size(min = 1, max = 255)
     private String descricao;
 
-    @Column(name = "custo", nullable = false)
+    @Column(name = "valor", nullable = false)
     @NotNull
-    @DecimalMin(value = "0.0", inclusive = false, message = "O custo deve ser maior que 0")
-    private BigDecimal custo;
+    @DecimalMin(value = "0.0", inclusive = false, message = "O valor deve ser maior que 0")
+    private BigDecimal valor;
 
-    @Column(name = "vencimento", nullable = false)
+    @Column(name = "data", nullable = false)
     @NotNull
-    private LocalDate vencimento;
+    private LocalDate data;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonIgnoreProperties("despesas")
+    @JsonIgnoreProperties("receitas")
     private Usuario usuario;
+
 }
