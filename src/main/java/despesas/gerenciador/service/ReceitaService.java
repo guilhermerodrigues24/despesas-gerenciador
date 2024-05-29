@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +50,7 @@ public class ReceitaService {
         return receitaRepository.save(novaReceita);
     }
 
-    public void deletarReceita(Long id){
+    public void deletarReceita(Long id) {
         buscarReceitaPorId(id);
         try {
             receitaRepository.deleteById(id);
@@ -57,5 +58,14 @@ public class ReceitaService {
             throw new RuntimeException("Não é possível excluir, há entidades relacionadas!");
         }
     }
+
+    public double calcularTotalReceitasPorUsuarioId(Long usuarioId) {
+        return receitaRepository.findByUsuario_Id(usuarioId)
+                .stream()
+                .map(Receita::getValor) // Supondo que getValor retorna BigDecimal
+                .reduce(BigDecimal.ZERO, BigDecimal::add) // Soma os BigDecimal
+                .doubleValue(); // Converte para double
+    }
+
 
 }

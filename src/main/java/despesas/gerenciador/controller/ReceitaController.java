@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/receita")
@@ -45,6 +46,12 @@ public class ReceitaController {
     public ResponseEntity<Void> deletarReceita(@PathVariable Long id) {
         receitaService.deletarReceita(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/total/usuario/{usuarioId}")
+    public ResponseEntity<Double> obterTotalReceitasPorUsuarioId(@PathVariable Long usuarioId) {
+        double totalReceitas = receitaService.calcularTotalReceitasPorUsuarioId(usuarioId);
+        return ResponseEntity.ok().body(totalReceitas);
     }
 
 }

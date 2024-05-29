@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/despesa")
@@ -45,6 +46,12 @@ public class DespesaController {
     public ResponseEntity<Void> deletarDespesa(@PathVariable Long id) {
         despesaService.deletarDespesa(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/total/usuario/{usuarioId}")
+    public ResponseEntity<Double> obterTotalDespesasPorUsuarioId(@PathVariable Long usuarioId) {
+        double totalDespesas = despesaService.calcularTotalDespesasPorUsuarioId(usuarioId);
+        return ResponseEntity.ok().body(totalDespesas);
     }
 
 }
