@@ -54,4 +54,9 @@ public class DespesaController {
         return ResponseEntity.ok().body(totalDespesas);
     }
 
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Despesa>> getDespesasByUsuarioId(@PathVariable Long id) {
+        List<Despesa> despesas = despesaService.buscarDespesasAssociadasAoUsuarioPorId(id);
+        return ResponseEntity.ok(despesas);
+    }
 }

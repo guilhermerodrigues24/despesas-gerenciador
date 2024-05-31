@@ -35,11 +35,6 @@ public class ReceitaService {
         return receita.orElseThrow(() -> new RuntimeException("Receita não encontrada!"));
     }
 
-    public List<Receita> buscarReceitasAssociadasAoUsuarioPorId(Long id) {
-        List<Receita> receitas = receitaRepository.findByUsuario_Id(id);
-        return receitas;
-    }
-
     @Transactional
     public Receita atualizarReceita(Receita receita) {
         Receita novaReceita = buscarReceitaPorId(receita.getId());
@@ -65,6 +60,14 @@ public class ReceitaService {
                 .map(Receita::getValor) // Supondo que getValor retorna BigDecimal
                 .reduce(BigDecimal.ZERO, BigDecimal::add) // Soma os BigDecimal
                 .doubleValue(); // Converte para double
+    }
+
+    public List<Receita> buscarReceitasAssociadasAoUsuarioPorId(Long id) {
+        // Certifique-se de que o usuário existe
+        usuarioService.buscarUsuarioPorId(id);
+        // Busca todas as receitas associadas ao usuário pelo ID
+        List<Receita> receitas = receitaRepository.findByUsuario_Id(id);
+        return receitas;
     }
 
 

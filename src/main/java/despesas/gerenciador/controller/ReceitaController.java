@@ -54,4 +54,10 @@ public class ReceitaController {
         return ResponseEntity.ok().body(totalReceitas);
     }
 
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Receita>> getReceitasByUsuarioId(@PathVariable Long id) {
+        List<Receita> receitas = receitaService.buscarReceitasAssociadasAoUsuarioPorId(id);
+        return ResponseEntity.ok(receitas);
+    }
+
 }
