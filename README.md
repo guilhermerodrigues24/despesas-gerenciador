@@ -1,3 +1,4 @@
-Projeto desenvolvido para a disciplina de Orientação a Objetos. 
+#Expense Manager
+Sistema de gerenciamento de despesas e receitas pessoais.
 
-Tecnologias utilizadas no desenvolvimento: Java, Spring Boot, Spring MVC, Maven, Hibernate e PostgreSQL.
+Este projeto foi desenvolvido durante a graduação em Sistemas de Informação na UNIFAP.
