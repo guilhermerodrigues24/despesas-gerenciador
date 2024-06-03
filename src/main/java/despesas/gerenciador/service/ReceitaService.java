@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,11 +35,6 @@ public class ReceitaService {
         return receita.orElseThrow(() -> new RuntimeException("Receita não encontrada!"));
     }
 
-    public List<Receita> buscarReceitasAssociadasAoUsuarioPorId(Long id) {
-        List<Receita> receitas = receitaRepository.findByUsuario_Id(id);
-        return receitas;
-    }
-
     @Transactional
     public Receita atualizarReceita(Receita receita) {
         Receita novaReceita = buscarReceitaPorId(receita.getId());
@@ -49,7 +45,7 @@ public class ReceitaService {
         return receitaRepository.save(novaReceita);
     }
 
-    public void deletarReceita(Long id){
+    public void deletarReceita(Long id) {
         buscarReceitaPorId(id);
         try {
             receitaRepository.deleteById(id);
@@ -57,5 +53,20 @@ public class ReceitaService {
             throw new RuntimeException("Não é possível excluir, há entidades relacionadas!");
         }
     }
+
+    public double calcularTotalReceitasPorUsuarioId(Long usuarioId) {
+        return receitaRepository.findByUsuario_Id(usuarioId)
+                .stream()
+                .map(Receita::getValor)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
+    }
+
+    public List<Receita> buscarReceitasAssociadasAoUsuarioPorId(Long id) {
+        usuarioService.buscarUsuarioPorId(id);
+        List<Receita> receitas = receitaRepository.findByUsuario_Id(id);
+        return receitas;
+    }
+
 
 }

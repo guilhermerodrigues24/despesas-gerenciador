@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,7 @@ public class DespesaService {
     }
 
     public List<Despesa> buscarDespesasAssociadasAoUsuarioPorId(Long id) {
+        usuarioService.buscarUsuarioPorId(id);
         List<Despesa> despesas = despesaRepository.findByUsuario_Id(id);
         return despesas;
     }
@@ -58,4 +60,13 @@ public class DespesaService {
             throw new RuntimeException("Não é possível excluir, há entidades relacionadas!");
         }
     }
+
+    public double calcularTotalDespesasPorUsuarioId(Long usuarioId) {
+        return despesaRepository.findByUsuario_Id(usuarioId)
+                .stream()
+                .map(Despesa::getCusto)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
+    }
+
 }

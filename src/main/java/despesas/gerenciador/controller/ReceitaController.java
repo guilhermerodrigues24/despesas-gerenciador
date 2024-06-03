@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/receita")
@@ -27,11 +28,9 @@ public class ReceitaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criarReceita(@RequestBody Receita receita) {
-        receitaService.criarReceita(receita);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}").buildAndExpand(receita.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<?> criarReceita(@RequestBody Receita receita) {
+        Receita novaReceita = receitaService.criarReceita(receita);
+        return ResponseEntity.ok().body(novaReceita.getId());
     }
 
     @PutMapping("/{id}")
@@ -45,6 +44,18 @@ public class ReceitaController {
     public ResponseEntity<Void> deletarReceita(@PathVariable Long id) {
         receitaService.deletarReceita(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/total/usuario/{usuarioId}")
+    public ResponseEntity<Double> obterTotalReceitasPorUsuarioId(@PathVariable Long usuarioId) {
+        double totalReceitas = receitaService.calcularTotalReceitasPorUsuarioId(usuarioId);
+        return ResponseEntity.ok().body(totalReceitas);
+    }
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Receita>> getReceitasByUsuarioId(@PathVariable Long id) {
+        List<Receita> receitas = receitaService.buscarReceitasAssociadasAoUsuarioPorId(id);
+        return ResponseEntity.ok(receitas);
     }
 
 }

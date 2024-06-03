@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/despesa")
@@ -27,12 +28,11 @@ public class DespesaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criarDespesa(@RequestBody Despesa despesa) {
-        despesaService.criarDespesa(despesa);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}").buildAndExpand(despesa.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<?> criarDespesa(@RequestBody Despesa despesa) {
+        Despesa novaDespesa = despesaService.criarDespesa(despesa);
+        return ResponseEntity.ok().body(novaDespesa.getId());
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizarDespesa(@RequestBody Despesa despesa, @PathVariable Long id) {
@@ -47,4 +47,15 @@ public class DespesaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/total/usuario/{usuarioId}")
+    public ResponseEntity<Double> obterTotalDespesasPorUsuarioId(@PathVariable Long usuarioId) {
+        double totalDespesas = despesaService.calcularTotalDespesasPorUsuarioId(usuarioId);
+        return ResponseEntity.ok().body(totalDespesas);
+    }
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<List<Despesa>> getDespesasByUsuarioId(@PathVariable Long id) {
+        List<Despesa> despesas = despesaService.buscarDespesasAssociadasAoUsuarioPorId(id);
+        return ResponseEntity.ok(despesas);
+    }
 }

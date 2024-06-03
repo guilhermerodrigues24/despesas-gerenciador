@@ -45,5 +45,4 @@ public class Receita extends Entidade {
     @JoinColumn(name = "usuario_id", nullable = false)
     @JsonIgnoreProperties("receitas")
     private Usuario usuario;
-
 }
