@@ -55,11 +55,6 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
-    public Long buscarIdDoUsuario(Usuario usuario) {
-        Long id = usuario.getId();
-        return id;
-    }
-
     public Long buscarIdDoUsuarioPorEmail(String email) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
         Usuario usuario =

@@ -57,15 +57,13 @@ public class ReceitaService {
     public double calcularTotalReceitasPorUsuarioId(Long usuarioId) {
         return receitaRepository.findByUsuario_Id(usuarioId)
                 .stream()
-                .map(Receita::getValor) // Supondo que getValor retorna BigDecimal
-                .reduce(BigDecimal.ZERO, BigDecimal::add) // Soma os BigDecimal
-                .doubleValue(); // Converte para double
+                .map(Receita::getValor)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
     }
 
     public List<Receita> buscarReceitasAssociadasAoUsuarioPorId(Long id) {
-        // Certifique-se de que o usuário existe
         usuarioService.buscarUsuarioPorId(id);
-        // Busca todas as receitas associadas ao usuário pelo ID
         List<Receita> receitas = receitaRepository.findByUsuario_Id(id);
         return receitas;
     }

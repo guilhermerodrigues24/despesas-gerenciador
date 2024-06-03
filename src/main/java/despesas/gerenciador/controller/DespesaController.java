@@ -28,12 +28,11 @@ public class DespesaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criarDespesa(@RequestBody Despesa despesa) {
-        despesaService.criarDespesa(despesa);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}").buildAndExpand(despesa.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<?> criarDespesa(@RequestBody Despesa despesa) {
+        Despesa novaDespesa = despesaService.criarDespesa(despesa);
+        return ResponseEntity.ok().body(novaDespesa.getId());
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> atualizarDespesa(@RequestBody Despesa despesa, @PathVariable Long id) {

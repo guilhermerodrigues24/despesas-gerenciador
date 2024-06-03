@@ -37,9 +37,7 @@ public class DespesaService {
     }
 
     public List<Despesa> buscarDespesasAssociadasAoUsuarioPorId(Long id) {
-        // Certifique-se de que o usuário existe
         usuarioService.buscarUsuarioPorId(id);
-        // Busca todas as despesas associadas ao usuário pelo ID
         List<Despesa> despesas = despesaRepository.findByUsuario_Id(id);
         return despesas;
     }
@@ -66,9 +64,9 @@ public class DespesaService {
     public double calcularTotalDespesasPorUsuarioId(Long usuarioId) {
         return despesaRepository.findByUsuario_Id(usuarioId)
                 .stream()
-                .map(Despesa::getCusto) // Supondo que getCusto retorna BigDecimal
-                .reduce(BigDecimal.ZERO, BigDecimal::add) // Soma os BigDecimal
-                .doubleValue(); // Converte para double
+                .map(Despesa::getCusto)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
     }
 
 }

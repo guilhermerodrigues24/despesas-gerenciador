@@ -28,11 +28,9 @@ public class ReceitaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> criarReceita(@RequestBody Receita receita) {
-        receitaService.criarReceita(receita);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                .path("/{id}").buildAndExpand(receita.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<?> criarReceita(@RequestBody Receita receita) {
+        Receita novaReceita = receitaService.criarReceita(receita);
+        return ResponseEntity.ok().body(novaReceita.getId());
     }
 
     @PutMapping("/{id}")
