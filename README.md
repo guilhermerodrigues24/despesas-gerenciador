@@ -1,4 +1,4 @@
 <h1>Expense Manager</h1>
-Sistema de gerenciamento de despesas e receitas pessoais.
+<p>Sistema de gerenciamento de despesas e receitas pessoais.</p>
 
-Este projeto foi desenvolvido durante a graduação em Sistemas de Informação na UNIFAP.
+<p>Este projeto foi desenvolvido durante a graduação em Sistemas de Informação na UNIFAP.</p>
